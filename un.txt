@@ -1,0 +1,2740 @@
+	
+Shells in UNIX:
+
+1) Bourne shell(sh):- It is developed by Stephen Bourne
+	   		User prompt: $
+			root prompt: #
+			It is default in 
+				Hp-Ux,Solaris,SCO UNIx
+
+2) Bourne Again shell(bash):- It is developed by Brain Fox 
+				User prompt: $
+				root prompt: #
+				It is default in
+					Linux,MAC OS X
+3) Korn Shell(ksh):-It is developed by David Korn
+			Userprompt: $
+			root prompt: #
+			it is default in IBM-AIX
+
+4) Cshell (csh):-  It is Developed by Bill Joy
+			User prompt:	%
+			root prompt:	#
+			It is default in :IRIX Silocon Graphics
+
+
+
+
+
+
+
+
+
+
+Changing Shell:-
+
+$logname
+sathya
+$echo $SHELL	-> Display the default( or parent) Shell
+/bin/bash
+$echo $0	-> Display the current shell
+-bash
+
+$ksh		-> To go to child shell korn shell(ksh)
+
+$echo $SHELL	-> Display the parent shell
+/bin/bash
+$echo $0
+ksh
+$exit		-> to come out from child shell 'ksh'
+
+$echo $SHELL	
+/bin/bash
+$echo $0
+-bash
+
+
+
+
+
+Executing more than one unix command at a time;
+
+$logname;pwd;date
+
+
+			SHELL SCRIPTING
+
+	-> A file that contains collection of unix 			commands.
+	
+	->Default execution is sequential.
+
+	->It supports conditional statements to execute
+			the commands conditionally.
+	-> It supports loops to execute the commands
+		required no. of times.
+	-> Shell scripts are end with .sh extension, that 		is
+		optional.
+
+	->'echo' is used to display message or value in
+		variables 
+	-> 'read' is used to read values into variables.
+
+	
+?Write a Shell script to display  messages.
+
+$pwd
+/home/oracle
+$vi welcm.sh
+echo This is unix Shell scripting
+echo This is first class of shell
+:wq
+
+Executing shell script:
+
+$sh welcm.sh
+
+
+?WAs to execute unix commands
+$vi cmds
+date
+logname
+pwd
+cal
+:wq
+
+$sh cmds
+
+
+
+Variable:- It is an integral part of program.
+	-> It is used to hold the data temporaryly.
+
+Rules for naming the varibale
+
+	-> variable name should begins with alphabet or 
+		underscore(_).
+	
+	->valid characters are 
+		i) A-Z ii) a-z iii) 0-9 iv) underscore(-)
+
+	->Variable name is case sensitive
+
+All the unix variables are classified into two types:
+
+1) User defined varibales
+2) Unix defined or system defined or Environment 		varibales.
+
+
+
+
+
+
+
+1) User defined variables: Variables defined by user.
+			These are classified into three 			types.
+
+			i) Local Variables
+		       ii) constant variables
+		      iii) global variables
+
+
+i) Local Variables:- Variable declared in parent shell
+			valid in parent but not valid
+			in other child shells
+$echo $SHELL
+
+/bin/bash
+
+$echo $0
+
+-bash
+
+$a=10
+
+$echo $a	->display value in variable 'a'.
+10
+$b=50
+
+$echo $b
+50
+$b=70
+
+$echo $b
+70
+$sh
+		->To go to child shell
+$echo $SHELL
+/bin/bash
+
+$echo $0
+sh
+
+$echo $a	->no output displayed since a is local 					variable
+
+$exit		->to come out from sh
+
+$echo $0
+-bash
+
+$set		->display all the declared variables
+			with values.
+
+$v=manager
+$echo $v
+manager
+
+
+.bashrc:- This hidden file available in every user login.
+		To make any variable as perminant 				variable,
+		variable should be declared in this file.
+
+$pwd
+/home/oracle
+
+$vi .bashrc
+
+
+x=300
+y=400
+
+:wq
+
+$. .bashrc  	->executing the file.
+
+$echo $x
+300
+$echo $y
+400
+
+Note: This file is automatically executed when user 				loggedin.
+
+
+ii) constant variables:- 'readonly' key word is used
+			to declare constatnt variables.
+
+		->values of these variables cannot be
+			changed.
+		-> These are also local variables.
+
+$k=400
+
+$echo $k
+400
+
+$k=500
+$echo $k
+500
+
+$readonly k
+$k=600
+Error since k is read only variable.
+$echo $k
+500
+
+$readonly r=500
+$echo $r
+500
+$r=5
+error since r is readonly variable.
+
+$readonly 	->Display all the readonly variables.
+
+
+iii) Global varibales:- variable declared in parent shell
+			valid in parent shell as well
+			as other child shells.
+		->'export' key word is required to 
+			declare global variable.
+
+$echo $SHELL
+/bin/bash
+
+$echo $0
+-bash
+
+$lv=400
+$export g=500
+
+$echo $lv
+400
+
+$echo $g
+500
+$ksh
+
+$echo $SHELL
+/bin/bash
+
+$echo $0
+ksh
+
+$echo $lv
+	->no value displayed since 'lv' is local variable
+$echo $g
+500	->since it is global variable.
+
+$exit
+
+$echo $0
+-bash
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+.bash_profile:- This hidden file available in every user
+		login.
+		-> If any third party software
+			(ex. oracle,teradata,apps etc.,)
+		is running in linux, class path of s/w
+		i.e where third party s/w is installed
+		and where the third party s/w executables
+		are availbe should be mentioned in this
+		file, then only user can access
+		third party s/w.
+
+	-> This file and .bashrc are automatically
+		executed when user logged in.
+
+
+$vi .bash_profile
+
+
+
+
+
+
+
+
+2) Environment Variables:- Variables defined by unix.
+			->Unix use these variables to set
+			the environment of user.
+
+$set --> Display all the env. variables with default 		values.
+
+..............
+...............
+...............
+
+HOME=/home/sathya ->specifies the default dir of visix user.
+
+PS1='$'		-> specifies the default prompt.
+PS2='>'		-> specifies the next line symbol.
+
+SHELL=/bin/bash   -> It specifies the default shell of user
+............
+............
+
+Note:- To change the value of any environment variable 
+         value perminantly its value should be changed
+	  in .bash_profile file.
+
+$logname
+sathya
+
+$echo $HOME
+/home/sathya
+
+$echo $PS2
+>
+$echo $SHELL
+/bin/bash
+
+Changing the prompt:-
+
+$vi .bash_profile
+...............
+.............
+
+export PS1=?
+............
+............
+............
+:wq
+
+$. .bash_profile  ->executing the file.
+
+?  	->$ prompt changed to ?.
+
+
+
+?WAS to read values in to variables and display the 				values.
+
+$vi vardata
+echo enter two values
+read a b
+echo values are $a and $b
+
+:wq
+
+$sh vardata
+
+
+
+
+
+
+
+
+
+
+
+
+
+?WAS to remove blank lines from given file
+
+$vi blank
+echo enter filename
+read f
+grep -v ^$ $f>temp
+mv temp $f
+echo blank lines deleted
+:wq
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Operator in Unix:
+
+1) Arithmetic operators:- These are used to perform
+			arithmetic operations.
+
++ ->addition
+
+- -> sub
+
+\* ->multiplication
+
+/ ->division
+
+% ->Modular division, it returs reminder after the 
+			division.
+
+2) Numeric Comparison Operators:-
+
+1) -gt ->Greater than
+
+2) -ge -> Greater than or equal
+
+3) -lt -> Less than
+
+4) -le -> Less than or equal 
+
+5) -eq -> equal 
+
+6) -ne -> Not equal 
+
+
+3) Logical Operators:- These are used to combine the 					results
+	of more than one expression to get single result.
+
+1) -a -> AND
+
+2) -o -> OR
+
+3) ! -> Not
+
+
+
+
+Note:-'expr' Keyword should be used to perform 
+	arithmetic operation between two integer values.
+
+
+
+
+$a=10
+$b=20
+$expr $a + $b ->before and after '+ 'space is compulsory.
+o/p:30
+
+$c=`expr $a + $b`      `->back quote
+$echo $c
+o/p: 30
+Note: expr can be replaced with 'let'
+
+$let d=a+b
+$echo $d
+o/p:30
+
+$echo $a+$b
+10+20
+$c=`echo $a+$b|bc`   `->back quote
+$echo $c
+o/p:30
+
+
+?WAS to find sum and difference of two integers 
+
+$vi sumdif
+
+echo enter two integers
+read a b
+c=`expr $a + $b`
+echo a+b=$c
+c=`expr $a - $b`
+echo a-b=$c
+:wq
+
+Note:Above program valid only for integers but not valid
+	for float values.
+
+?WAS to find sum,difference and product of two integers 		and floats.
+
+$vi arth
+
+echo enter two values
+read a b
+c=`echo $a+$b|bc`
+echo a+b=$c
+c=`echo $a-$b|bc`
+echo a-b=$c
+c=`echo $a\*$b|bc`
+echo a*b=$c
+
+:wq
+
+
+Conditional Statements:- These are used to execute the 
+			statements conditionally.
+
+1) Simple if:
+
+	if [ Condition ]
+	then
+	..............
+	................
+	fi
+
+-> Given condition true then statements under if are
+	are executed.
+
+
+
+
+
+
+
+
+
+
+2) if-then-else
+
+Syntax:
+	if [ condition ]
+	then
+	...........
+	...........
+	...........
+
+	else
+	..........
+	.........
+	fi
+
+->Given condition true, then statements under if are
+	executed, otherwise statements under else
+	are executed.
+
+
+
+
+
+
+3) Ladder if:- Used to check multiple conditions.
+
+Syntax:
+
+	if [cond1 ]
+	then
+	........
+	........
+	elif [ cond2 ] 	
+	then
+	...........
+	............
+	elif [cond3 ]
+	then
+	..........
+	.........
+	
+
+
+	else
+	.........
+	.........
+	fi
+
+-> If all the conditions are failed, then statements
+	under else are executed.
+
+
+
+4) nested if:- If statement in another if statement.
+
+Syntax:
+
+if [ cond ]
+then
+	........
+	........
+		if [ cond ]
+		then
+		...........
+		...........
+			if [ cond ]
+			then
+			...........
+			...........
+			else
+			.........
+			.......
+			fi
+
+		else
+		.....
+		....
+		fi
+else
+......
+......
+fi
+
+
+
+Case:-
+
+Syntax:
+
+	case <variable> in
+	
+	value1) .........
+		.........;;
+	value2) ..........
+		..........
+		..........;;
+	value3) ...........
+		...........
+		...........;;
+
+
+
+
+	[*) ..............
+	   .............;;]
+	esac
+
+-> value in variable is other than the mentioned values
+	then statements under *) are executed.
+
+
+
+
+
+
+?WAS to check no. of users conncted to server more than one or not
+
+$vi usrcnt
+
+c=`who|wc -l`
+if [ $c -gt 1 ]
+then
+echo No. of users connected: $c
+else
+echo you are only user to server
+fi
+
+:wq
+
+
+
+
+
+
+
+
+
+
+
+
+?WAS to check give number is even or odd
+
+$vi evenodd
+echo enter number
+read n
+c=`expr $n % 2`
+if [ $c -eq 0 ]
+then
+echo Given numebr even
+else
+echo given numebr is odd
+fi
+  
+:wq
+
+
+
+
+
+
+
+
+
+
+
+?WAS to compare two given numbers:
+
+$vi numcmp
+
+echo enter two values
+read a b
+if [ $a -gt $b ]
+then
+echo a is big
+elif [ $a -lt $b ]
+then
+echo b i big
+else
+echo a is equal to b
+fi
+
+:wq
+
+
+
+
+
+
+
+
+
+checking whether user valid user nor not for unix :
+
+
+	-> All the valid users information available in 
+		/etc/passwd file.
+
+
+$grep -w sathya /etc/passwd
+
+
+?WAS to check given user valid or not
+
+$vi usrchk
+
+echo enter username
+read usr
+if grep -w $usr /etc/passwd>/dev/null
+then
+echo Given user is valid
+else
+echo Given user is not valid
+fi
+
+:wq
+
+
+
+
+
+
+
+
+
+
+?WAS to check given number is within the given range or 		not using case
+
+$vi casetest
+
+echo enter any value form 1 to 4
+read n
+case $n in
+1) echo one;;
+2) echo two;;
+3) echo three;;
+4) echo four;;
+*) echo value is out of range;;
+esac                            
+
+:wq
+
+
+
+
+
+
+
+
+
+
+?WAS to check given character is lower case vowel,
+	upper case vowel or digit.
+
+$vi casechk
+
+echo enter any character
+read ch
+case $ch in
+[aeiou]) echo lower case vowel;;
+[AEIOU]) echo Upper case vowel;;
+[0-9]) echo digit;;
+esac
+
+:wq
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$v=manager
+$echo $v|cut -c 1-3
+man
+
+?WAS to check quarter of given month using case:
+
+$vi caseqrtr
+echo enter month in caps
+read m
+c=`echo $m|cut -c 1-3`
+case $c in
+JAN|FEB|MAR) echo first quarter;;
+APR|MAY|JUN) echo second quarter;;
+JUL|AUG|SEP) echo third quarter;;
+OCT|NOV|DEC) echo fourth quarter;;
+*) echo enter month in caps;;
+esac
+
+:wq  
+
+
+
+ 
+
+
+                   
+?WAS to check the result of student pass mark of each 		subject is more than or equal to 40.
+
+$vi stdrlst
+echo enter three subjects marks
+read m1 m2 m3
+if [ $m1 -ge 40 ]
+then         
+        if [ $m2 -ge 40 ]
+        then
+                if [ $m3 -ge 40 ]
+                then
+                echo Result:PASS
+                else
+                echo Result:Fail
+                fi
+        else
+        echo Result:Fail
+        fi 
+else
+echo Result:Fail
+fi
+
+:wq
+
+
+
+
+
+
+
+
+
+?Write above program using logical and operator:
+
+$vi result
+echo enter three subjects marks
+read m1 m2 m3
+if [ $m1 -ge 40 -a $m2 -ge 40 -a $m3 -ge 40 ]
+then
+echo result pass
+else
+echo result fail
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+String Test:
+
+1) str1 = str2 -> Returns true if both the strings are 			`			same
+
+2) str1 != str2 -> Returns true if strings are different
+
+3) -n str	-> Returns true if string size more than 					zero
+
+4) -z str 	-> Returns true if string is empty.
+
+
+File Test:
+
+1) -e <file_name> -> Returns true if file exists
+
+2) -s <file_name> -> Returns true if file size more than  					zero
+
+3) -f <file_name> -> Returns true if file is reg file
+
+4) -d <file_name> -> Returns true if file is directory 						file
+
+5) -b <file_name> -> Returns true if file is block 			`			special file
+
+6) -c <file_name> -> Returns true if file is character 						special file
+
+7) -r <file_name> -> Returns true if file will have read 					per.,
+
+8) -w <file_name> -> Returns true if file will have write 					per,.
+
+9) -x <file_name> -> Returns true if file will have 						executable
+			permission.
+10) -O <file_name>-> Returns true if your are owner for 					file
+
+11) -G <file_name> -> Returns true if file belongs to 						your group
+
+12) f1  -ot f2 -> Returns true if f1 is older than f2
+
+
+13) f1 -nt f2 -> Retruns true if f2 is older than f1
+
+
+
+
+?WAS to compare the two strings
+
+$vi stcmp
+echo enter two strings
+read str1 str2
+if [ $str1 = $str2 ]
+then
+echo two strings are same
+else
+echo two different strings are entered
+fi
+
+:wq
+
+
+
+
+
+
+
+
+
+
+
+?WAS to check give string is empty or not
+
+$vi stchk
+
+echo enter string
+read str
+if [ -z $str ]
+then
+echo Given string is empty
+else
+echo given string is:$str
+fi
+
+
+:wq!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Examples on File Test:
+
+?wAS to delete a regular or directory file.
+
+$vi fdel
+echo enter file name
+read fn
+if [ -e $fn ]
+then
+rm -rf $fn
+echo file deleted
+else
+echo file not exists
+fi
+
+:wq
+
+
+
+
+
+
+
+
+?WAS to check give file is reg file dir. file or other 	  type of file.
+
+$vi fchk
+
+echo enter filename
+read fn
+if [ -e $fn ]
+then
+	if [ -f $fn ]
+	then
+	echo given file is regular file
+	elif [ -d $fn ]
+	then
+	echo give file is directory file
+	else
+	echo given file is not reg or dir file
+	fi
+else
+echo file not exists
+fi
+:wq
+
+
+
+
+
+
+
+
+
+
+?WAS to display data from given file if file will have 
+	read permission.
+
+$vi fdata
+echo enter file name
+read fn
+if [ -e $fn ]
+then
+	if [ -f $fn ]
+	then
+		if [ -r $fn ]
+		then
+		cat $fn
+		else
+		echo file will not have read permission
+		fi
+	else
+	echo file is not regular file
+	fi
+else
+echo file not exists
+fi
+
+:wq
+
+
+?WAS to check wheter you are owner or not for given file
+
+$vi fowner
+
+echo enter file name
+read fn
+if [ -e $fn ]
+then
+	if [ -O $fn ]
+	then
+	echo your are owner for given file
+	else
+	echo you are not owner
+	fi
+else
+echo file not exists
+fi
+
+:wq
+
+?wAS to check whether file belongs to your group or not
+
+$vi fgroup
+
+echo enter file name
+read fn
+if [ -e $fn ]
+then
+	if [ -G $fn ]
+	then
+	echo file belongs to your group
+	else
+	echo file is not in your group
+	fi
+else
+echo file not exists
+fi
+
+:wq
+
+
+
+
+
+Loops:-  These are used to execute the statements 				required no.,
+		of times.
+
+		1) while
+		2) until
+		3) for 
+		4) select
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) while:
+
+Syntax-1
+
+	while [ condition ]
+	do
+	............
+	.............
+	.............
+	done
+
+-> Given condition true, then statements under while are
+	executed.
+
+Syntax-2
+
+	while true
+	do
+	...........
+	.........
+	..........
+	done
+
+
+-> Above loop is infinite loop,'break' or 'continue' statements
+are used to come out from loop or to continue the loop.
+
+2) until:
+
+Syntax-1
+
+	until [ condition ]
+	do
+	............
+	.............
+	.............
+	done
+
+-> Given condition false, then statements under until are
+	executed.
+
+Syntax-2
+	
+	until false
+	do
+	...........
+	.........
+	..........
+	done
+
+-> Above loop is infinite loop,'break' or 'continue' statements
+are used to come out from loop or to continue the loop.
+
+?WAS to print numbers upto given number using while loop
+
+$vi whilenum
+
+echo enter number
+read n
+i=1
+while [ $i -le $n ]
+do
+echo $i
+i=`expr $i + 1`
+done
+
+:wq
+
+
+
+
+
+
+
+
+
+
+
+
+
+?Write a shell script to find even numbers sum and odd numbers sum upto give number using until loop
+
+
+$vi untilsum
+
+echo enter number
+read n
+i=1
+es=0
+os=0
+until [ $i -gt $n ]
+do
+        if [ `expr $i % 2` -eq 0 ]
+        then
+        es=`expr $i + $es`
+        else
+        os=`expr $i + $os`
+        fi
+i=`expr $i + 1`
+done
+echo Even numbers sum:$es
+echo Odd numbers sum :$os
+
+:wq 
+
+
+
+Creating user with default directory under /usr:
+
+#useradd -d /usr/myusr -m myusr
+
+?WAS to create given number of users but default 		directory of
+	users should be under /usr directroy.
+
+#vi whileusr
+
+echo enter no. of users required
+read n
+i=1
+while [ $i -le $n ]
+do
+if grep -w u$i /etc/passwd>/dev/null
+then
+echo u$i already exists
+else
+useradd -d /usr/u$i -m u$i
+echo u$i created
+fi
+i=`expr $i + 1`
+done
+
+:wq
+
+
+
+
+
+
+
+?write a shell script to check give user connected server 	
+	or not if user not connected continuously check for
+	user until user connected to server using while 						loop.
+
+$vi whileuser
+
+echo enter username
+read usr
+while true
+do
+        if who|grep -w $usr>/dev/null
+        then
+        echo $usr connected
+        break
+        else
+        echo cheking for user
+        sleep 10
+        continue
+        fi
+done
+
+:wq
+
+
+
+select loop:- It is menu based loop.
+
+ Syntax:
+
+	select <variable> in value1 value2 value3 .......
+		do
+		............
+		..............
+		done
+
+-> It will form menu with given values, while executing 		program.
+
+
+Examples on select:
+
+$vi slct
+
+select i in Osname ServerIP Date Exit
+do
+case $i in
+Osname) uname;;
+ServerIP) hostname -i;;
+Date) date;;
+Exit) exit;;
+*) echo enter correct choice;;
+esac
+done
+
+:wq
+
+?WAS to find sum,difference and product of two integers 	using select
+
+$vi slarth
+
+echo enter two values
+read a b
+select i in SUM DIF PROD EXIT
+do
+case $i in
+SUM) echo sum is:`expr $a + $b`;;
+DIF) echo differe is:`expr $a - $b`;;
+PROD) echo product is:`expr $a \* $b`;;
+EXIT) exit;;
+*) echo enter correct choice;;
+esac
+done
+                                                               
+:wq
+
+
+
+
+for loop:
+
+Syntax-1
+
+	for <varibale> in const1 const2 const3 ........
+	
+	do
+	............
+	.............
+	done
+
+Syntax-2:
+
+	for <variable> in 'seq $n' 
+	do
+	.........
+	........
+	..........
+	..........
+	done
+
+		->Here n is variable
+
+
+
+?WAS to display give four values using for loop
+
+$vi fornum
+
+echo enter four values
+read a b c d
+for i in $a $b $c $d
+do
+echo $i
+done
+
+:wq
+
+
+?WAS to find the sum of given four values using for loop
+
+$vi forsum
+
+echo enter four values
+read a b c d
+sum=0
+for i in $a $b $c $d
+do
+sum=`expr $sum + $i`
+done
+echo sum is:$sum
+
+:wq
+
+
+
+
+
+
+
+
+
+
+Create EMP file with data as show below:
+
+$cat emp
+100:smith:clerk:800
+200:allen:analyst:1600
+300:ward:manager:2000
+
+
+
+
+$cut -f 4 -d':' emp
+		->display 4 field data from emp file
+
+
+$cat emp|cut -f 4 -d':'
+
+
+
+
+
+
+
+
+
+
+
+
+
+?WAS to display data from emp file using for loop;
+
+$vi foremp
+for i in `cat emp`
+do
+echo $i
+done
+
+:wq
+
+?WAS to display data from emp file if sal of employee greater than or equal to 2000.
+
+$vi forsal
+
+for i in `cat emp`
+do
+s=`echo $i|cut -f 4 -d':'`
+if [ $s -ge 2000 ]
+then
+echo $i
+fi
+done
+
+:wq
+
+
+
+
+
+
+
+?write a shell script to print numbers 
+    upto give number using for loop
+
+$vi fornmbrs
+
+echo enter a number
+read n
+for i in `seq $n`
+do
+echo $i
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+Positional parameters or command line arguements:
+		
+	-> These are used to pass values to shell script
+		from the command line at the time of 
+	        executing shell script.
+		
+
+	->positional paramters are from $1, $2, $3 etc.,
+
+?WAS to find sum of two given numebrs using positional 		                        parameters
+
+$vi sum
+
+a=$1
+b=$2
+c=`expr $a + $b`
+echo sum is:$c
+
+:wq
+
+Executing the Program:
+
+$sh sum 5 8
+
+o/p: sum is: 13
+
+Displaying the step by step execution of shell script
+
+$sh -x sum 4 6
+
++ a=4
++ b=6
+++ expr 4 + 6
++ c=10
++ echo sum is:10
+sum is:10
+
+
+
+
+
+
+
+
+
+
+
+Note:- without writing program, we can assign values to 			p.p
+	at command prompt using 'set' command.
+
+$set A B C D E F G H I J
+
+$echo $1	->Display first p.p value
+A
+$echo $9	->Display 9th p.p value
+I
+$echo $10
+A0
+$echo ${10}	->Display 10th p.p value
+J
+$echo $#	->DIsplay No. of p.p involved
+10
+$
+$echo $*	->Display values of all the P.p at a time
+A B C D E F G H I J
+$echo $@
+A B C D E F G H I J
+
+Note: 'Shift'  command is used to shift the values of 				p.p.
+
+$set A B C D E F G H I J
+
+$shift 1	->to shift the p.p to one level 					back(left)
+$echo $1
+B
+$echo $#
+9
+$echo $@
+B C D E F G H I J
+
+
+
+Program to Display special paramter values:
+
+$vi test
+
+echo First p.p value:$1
+echo No. of p.p involved:$#
+echo Value of all p.p:$@
+echo Program Name:$0
+
+:wq
+
+$sh test This is unix
+
+
+
+
+
+
+
+
+$?->It holds the status of recently executed command
+	if command executed successfully its value zero
+	if command execution fails, its value other than 		zero
+
+$grep -w oracle /etc/passwd>/dev/null
+
+$echo $?
+0		->command executed successfully
+$grep -w oracl /etc/passwd>/dev/null
+
+$echo $?
+1		->command execution failed
+
+Process Status(ps):
+
+$ps	->display all the processes runnin in linux 	            server for given user
+
+$ps -ef -> Display all the processes running in linux 						server
+
+$ps -ef|grep -w sathya
+		->Display only sathya user processes.
+
+Killing process:
+
+SYntax:
+
+Kill <processId>
+
+$kill -9 5012   -> -9 for sure killing
+
+
+
+
+
+
+init runlevels: Run levels are used to control the server
+		  from root login
+
+#init 0		-> To shut down server
+
+#init 6 	->To Reboot server
+
+#init 1		->single user mode only root user can 					connect
+
+#init 2 or init3 -> multi user mode  but GUI not 					available.
+
+#init 5		->Multiuser mode and GUI also available
+				on serverside.
+
+#runlevel  ->Display the runlevel of server.
+
+
+$histroy 10 	->display recently fired 10 command.
+
+$echo $HISTSIZE
+1000		->Unix will store recently 
+			fired 1000 commands
+			as history.
+
+
+
+
+
+
+
+
+
+Functions:
+	 we can write set of statements 
+		under a name without opening file in vi 			editor.
+
+Syntax:
+
+	function <function_name>(){
+		................
+		.................
+		.................
+		}
+
+Executing function:
+
+Syntax:
+
+	<function_name>
+
+$function test_fun(){
+echo welcome to function
+echo This is unix function 
+}
+
+Executing function:
+
+$test_fun
+
+.mainfunc.sh:- Functions created in this hidden file
+		are perminant.
+
+$pwd
+/home/oracle
+$vi .mainfunc.sh
+function sum_fun(){
+a=$1
+b=$2
+c=`expr $a + $b`
+echo sum is:$c
+}
+
+$. .mainfunc.sh  ->Executing the .mainfunc.sh
+
+$sum_fun 4 8
+
+
+Array:- it is collection of elements of continuous 
+		memory locations.
+	-> Using array we can store more than one 
+		value in single variable.
+
+$a=(10 20 30 40)
+
+$echo ${a[0]}
+10		->first location value displayed.
+
+$echo ${a[4]}	->fifth location value displayed.
+
+$c=`expr ${a[0]}  + ${a[4]}`
+
+$echo $c
+
+
+Note:-Set command display all the existing arrays.
+
+	->above array valid only for one session to make 			it
+		perminant,declare above array in 				.bashrc.
+
+
+
+
+
+Scheduling the Jobs:
+
+1) at :- Used to schedule the jobs for single time 				execution.
+
+$at now + 7 minutes
+at>rm -rf * -> rm -rf * executed after 7minutes from 					scheduledtime.
+
+at> ->type ctrl+d  to come out from at
+
+$
+
+$at now + 2 months
+
+at>sh script22 -> Script22 executed after 2months from 					scheduled
+			date and time.
+
+at> ctrl+d ->to come out
+
+$
+
+$at -t 201312150930
+
+at>sh script44 -> script44 executed on 15/dec/2013 at 						9:30 AM.
+at> ctrl+d
+$
+
+
+$atq -> Display all at scheduled jobs with 				jobids,execution
+		time and scheduled username.
+
+$at -c 32 -> Display the details of job for  jobid-32.
+
+$atrm 32 -> job with jobid-32 is removed from at 				schedule.
+
+
+2) batch:- 
+		->used to schedule the jobs for single 					time
+			execution.
+		->Job executed only when server is free.
+
+$batch
+at>sh script33  	-> script33 executed when server 			             is free.	
+at> ctrl+d -> to come out
+$
+
+$atq -> Display scheduled job with jobid,scheduled time
+		and username.
+
+
+
+
+3) crontab:- It is used to schedule the jobs for
+		regular execution.
+
+	Commands:
+
+	1) crontab -e 	-> Open editor for scheduling the 				jobs
+
+	2) crontab -l	-> List the jobs which are 						scheduled
+				using crontab
+
+	3) crontab -r 	-> Remove all the crontab 						scheduled
+				jobs.
+
+$crontab -e
+#minutes hours dayofmonth monthofyear wkdays sh <script>
+# 00-59  00-23  01-31       01-12      0-6
+   *      *       *           *         *    sh script22 				->script22 executed forevery min.
+   30     10      *           *         *    sh script44 		        ->script44 executed every day at 10:30AM
+   45     22     1,2          *         *    sh script55 		           ->script55 executed ever month 1,2 at
+                             10:45PM
+                                                                                                 
+                                                                     
+
+
+
+
+
+
+
+
+
+Searching for files:
+
+1) which:- It is used to search for unix executable.
+
+$which pwd
+
+$which date
+
+2) whereis:- used to search for unix executable and
+		manual help pages path of executable.
+
+$whereis pwd
+
+$whereis date
+
+3) find:- used to search for file in given directory.
+
+$find file1 	->search for file1 in current working 					directory
+
+$find abc/a1/a2/file1 -> search for file1 in a2 directory
+
+$find|grep file1 -> search for file1 in c.w.d and all
+			sub-dir in current working 			                 directory
+
+
+4) locate:- used to search for file in entire unix file
+	system from root(/) directory on wards.
+
+
+
+
+
+
+
+
+
+
+			AWK
+A->Aho
+W->Weinberger
+K->Kernighan
+
+	-> It uSed to extract fields from file and also 		used
+		to perform arithmetic operations between
+		fields
+	->It will recognize the fileds if the field 		separator
+		is tab or space.
+	-> Print is used to print fields data from the 		file.
+Syntax:
+
+	awk [option] 'selection criteria {action}' 				file(s)
+
+Arithmetic operators:
++
+-
+*
+/
+%
+Comparison OPeratros:
+<
+<=
+>
+>=
+!=
+== -> equal
+Logical operators:
+
+&& -> AND
+|| -> OR
+
+Builtin varibales :
+
+$0 -> specifies entire file.
+
+$1,$2,... specifies 1st,2nd,... fields 
+
+NR -> specifies cumulative no.of records required  in output.
+
+RS -> Input record separator.
+
+OFS -> Out put field separator.
+
+
+$vi inv
+1       pen     20      25.00
+2       pencil  50       5.50
+3       rubber  50       2.00
+5       books   100     50.00
+
+$awk '{print $0}' inv	->Display complete data from inv 				file.
+
+
+$awk '{print $1" "$2}' inv	->Display 1st and 2nd                                     fields of inv file.
+
+
+$awk 'NR==2{print $0}' inv	->Display 2nd records of inv file
+
+
+
+Create inv2 file with following data.
+
+$vi inv2
+1:pen:20:25.00
+2:pencil:50:5.50
+3:rubber:50:2.00
+5:books:100:50.00
+
+$awk -F':' '{print $1" "$2}' inv2	->Display 1st and 					2nd fields data
+					from inv2 file
+					->-F option 					should be used
+					to specify the 					filed separator
+					if field 				separator is other than
+					tab or space.
+
+
+
+
+Scp(secure Copy):This command is used to copy files
+			from login to login in same or 					different 
+			unix servers.
+
+Syntax:
+
+scp sourceusername@Source_serverip:pathoffile 
+                     targetuser@target_srip:destination 						
+path
+
+$scp sathya@192.168.100.10:/home/sathya/scpfile 
+                 oracle@192.168.100.10:/home/oracle
+ 
+
+
+
+
+
+
+
+Links: In linux, links are classified into two types
+
+		i) Hard link
+	       ii) Soft link
+
+->Every file or directroy contains one unique 	identification
+	number called i-node number.
+
+$ls -i ->Display all files and subdir.,
+		with i-node numbers.
+
+i) Hard link:- It is pointer for i-node of file.
+
+
+$pwd
+/home/sathya
+$cat>file1
+sdfsdfsdfsd
+sdfsdfsdfsdf
+sdfsdfsdf
+
+$ln file hf1	->hf1 is hardlink for file1
+
+$ls -i		->i-node numebrs of file1 and hf1 are 			same
+
+Note: changes performed on file1 visible through
+		hf1 and reverse also valid.
+
+	->if file1 removed, still we can access data
+		through hf1
+
+ii) soft link:- It is pointer for filename.
+
+$ln -s file1 sf1
+		->sf1 is soft link for file1
+
+$ls -i		->i-node numbers of file1 and sf1 are
+			different
+		->size of sf1 is smaller than file1
+
+NOte:- Changes performed on file1 or hf1 or sf1 visible
+		through file1,hf1,sf1.
+
+	->if file1 removed, sf1 becomes invalid.
+
+Removing the Link:
+
+Syntax:
+	
+	unlink <soft/hard linkname>;
+
+
+$unlink sf1
+$unlink hf1
+
+
+
+Conneting to oracle:
+
+$logname 
+oracle
+$sqlplus scott/tiger
+
+SQL>cl scr;	-> to clear the screen
+
+SQL>show user;
+
+o/p: User is SCOTT
+
+SQL>select * from v$version; -> Display the version of 						oracle.
+
+SQL>select * from dept;  -> Display data from dept table.
+
+SQL>! 	-> to go back to linux
+
+$
+
+$exit 	-> to go back to oracle
+
+SQL>
+
+SQL>exit  -> to disconnect from the oracle.
+
+$logname
+
+o/p:oracle
+
+
+?WAS to display data from dept table in scott login;
+
+$vi orascript
+sqlplus -s scott/tiger<<EOF
+select * from dept;
+EOF
+
+:wq
+
+Executing Shell script
+
+$sh orascript
+		->Data in dept table displayed.
+
+
+
+
+Creating and executing C program:
+
+$vi test.c
+#include<stdio.h>
+main()
+{
+printf("Hello C\n");
+}
+
+:wq
+
+Creating object file for above c program:
+
+$cc -c test.c
+		->An object file test.o is created
+
+Creating Executable file for above object file:
+
+$cc -o myc test.o
+	
+$./myc
+
+o/P: Hello C
+
+$rm test.c test.o
+
+
+Creating executing C++ program:
+
+$vi new.cpp
+#include<iostream.h>
+main()
+{
+cout<<"Hello CPP\n";
+}
+
+:wq
+
+Creating object file above cpp program:
+
+$g++ -c new.cpp
+	->an object file new.o is created
+
+creating Executable file for above object file:
+
+$g++ -o mycpp new.o
+
+$./mycpp
+o/p: Hello CPP
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Verifying the space in unix:
+
+1) du ->It will display the space occupied by file
+		or directory.
+
+$du -skh /home/oracle
+		->display space occupied by oracle
+			directory in in kb or MB
+
+$pwd
+/home/oracle
+$du -kh abc ->Display size of abc directory in KB.
+
+$du -kh file1
+		->display the space occupied by 
+			file1 in KBs.
+
+2) df(disk space used)
+		->It will display the filesystems
+			info.,
+
+$df ->display file systems info in KB.
+
+$df -kh
+	->file systems info displayed in KBs, MBs and GBs
+
+top->This command display the Server            Resources(CPU,Memory etc.,) utilization
+	for processes with process ids and useranames.
+
+$top
+.............
+...............
+
+ctrl+d ->to comeout from top.
+
+iostat->It will display bulk reads and writes info	
+		for every device.
+
+$iostat 2 50
+		->bulk reads and writes info
+		displayed for every two sec
+		for 50 times.
+
+
+sar( System activities report)
+	->This is command will display the 
+		cpus utilization on the server side.
+
+$sar 2 100
+		->cpus utilization displyed for
+		every 2 seconds for 100 times.
+
+vmstat (virtual memory Statistics)
+	->This command will display the swap 
+		information.
+
+$vmstat 3   50
+	->virtual memory statistics displayed
+		for every 3 sec for 50 times.
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
